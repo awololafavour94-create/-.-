@@ -1,51 +1,36 @@
-## Function 1: Calculate Sum
-def total_sum(numbers):
+#from statistics import median, multimode
+
+# Function 1: Sum of numbers
+def sum_numbers(numbers):
     return sum(numbers)
 
 
-# Function 2: Calculate Mean
-def average(numbers):
-    count = len(numbers)
-    return total_sum(numbers) / count
+# Function 2: Average (Mean)
+def calculate_mean(numbers):
+    if len(numbers) == 0:
+        return 0
+    return sum(numbers) / len(numbers)
 
 
-# Function 3: Calculate Median and Mode
-def median_mode(numbers):
-    data = sorted(numbers)
-    size = len(data)
+# Function 3: Median and Mode
+def calculate_median_mode(numbers):
+    if len(numbers) == 0:
+        return None, None
 
-    middle = size // 2
-
-    if size % 2 == 0:
-        med = (data[middle - 1] + data[middle]) / 2
-    else:
-        med = data[middle]
-
-    counts = {x: numbers.count(x) for x in set(numbers)}
-    highest = max(counts.values())
-
-    mod = [x for x in counts if counts[x] == highest]
+    med = median(numbers)
+    mod = multimode(numbers)
 
     return med, mod
 
 
 # Main Program
-while True:
+numbers = [10, 20, 20, 30, 40, 50]
 
-    values = input("Enter numbers separated by spaces: ")
+print("Numbers:", numbers)
+print("Sum:", sum_numbers(numbers))
+print("Mean:", calculate_mean(numbers))
 
-    numbers = list(map(float, values.split()))
+median_value, mode_value = calculate_median_mode(numbers)
 
-    print("\nSUM:", total_sum(numbers))
-    print("MEAN:", average(numbers))
-
-    med, mod = median_mode(numbers)
-
-    print("MEDIAN:", med)
-    print("MODE:", mod)
-
-    choice = input("\nDo you want to continue? (yes/no): ")
-
-    if choice.lower() != "yes":
-        print("Program ended.")
-        break
+print("Median:", median_value)
+print("Mode:", mode_value)
